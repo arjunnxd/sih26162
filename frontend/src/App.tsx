@@ -5,6 +5,7 @@ import { Header } from './components/Header';
 import { SummaryCards } from './components/SummaryCards';
 import { HotspotList } from './components/HotspotList';
 import { HotspotDetail } from './components/HotspotDetail';
+import { HotspotMap } from './components/HotspotMap';
 
 function App() {
   const [hotspots, setHotspots] = useState<Hotspot[]>([]);
@@ -144,6 +145,18 @@ function App() {
 
       <main style={{ padding: '1.5rem 2rem 2rem 2rem', flex: 1 }}>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          <section style={{ marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+              <h2 style={{ margin: 0, fontSize: '1.125rem', fontWeight: 700, color: '#0f172a' }}>
+                Geospatial Overview
+              </h2>
+              <span style={{ fontSize: '0.75rem', color: '#64748b', background: '#f1f5f9', padding: '0.25rem 0.625rem', borderRadius: '9999px', fontWeight: 600 }}>
+                {hotspots.length} tracked
+              </span>
+            </div>
+            <HotspotMap hotspots={hotspots} selectedId={selectedId} onSelect={selectHotspot} />
+          </section>
+
           {hotspots.length === 0 ? (
             <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '0.75rem', padding: '3rem 2rem', textAlign: 'center' }}>
               <p style={{ fontSize: '2rem', margin: '0 0 0.75rem 0' }}>📡</p>
