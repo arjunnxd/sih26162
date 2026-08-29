@@ -9,7 +9,7 @@ directly. Kept deterministic - registration order is insertion order but
 from __future__ import annotations
 
 from typing import Any, Optional
-
+from app.services.data_sources.providers.firms_provider import FIRMSProvider
 from app.services.data_sources.provider import Provider, ProviderError
 from app.services.data_sources.providers.mock_provider import MockFirmsProvider
 
@@ -26,7 +26,7 @@ def register_provider(provider_cls: type[Provider]) -> type[Provider]:
 
 # Seed the registry with the bundled demo provider.
 register_provider(MockFirmsProvider)
-
+register_provider(FIRMSProvider)
 
 def get_provider(name: str) -> type[Provider]:
     """Return the provider class registered under ``name``."""
