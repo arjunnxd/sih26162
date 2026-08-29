@@ -1,0 +1,72 @@
+{
+  "_meta": {
+    "description": "MOCK/REFERENCE infrastructure dataset for the SIH26162 hackathon prototype. These are synthetic placeholder facilities placed near common Indian city coordinates for deterministic testing only. They DO NOT represent real infrastructure and must not be used for operational decisions.",
+    "purpose": "Supports proximity-intelligence testing against the existing mock hotspot coordinates (Delhi, Mumbai, Bengaluru).",
+    "record_schema": {
+      "id": "string unique identifier",
+      "name": "display name",
+      "type": "industrial_plant | power_plant | refinery | chemical_facility | warehouse",
+      "latitude": "degrees, -90..90",
+      "longitude": "degrees, -180..180",
+      "is_critical": "boolean; critical facilities (refineries, power plants) near which a thermal event is treated as more serious"
+    }
+  },
+  "facilities": [
+    {
+      "id": "IND-DLH-REF-001",
+      "name": "Delhi Refinery Unit",
+      "type": "refinery",
+      "latitude": 28.5959,
+      "longitude": 77.2090,
+      "is_critical": true
+    },
+    {
+      "id": "IND-DLH-IND-001",
+      "name": "Okhla Industrial Plant",
+      "type": "industrial_plant",
+      "latitude": 28.6139,
+      "longitude": 77.2230,
+      "is_critical": false
+    },
+    {
+      "id": "IND-DLH-CHM-001",
+      "name": "Gurugram Chemical Facility",
+      "type": "chemical_facility",
+      "latitude": 28.4595,
+      "longitude": 77.0266,
+      "is_critical": false
+    },
+    {
+      "id": "IND-MUM-PWR-001",
+      "name": "Trombay Thermal Power Plant",
+      "type": "power_plant",
+      "latitude": 19.0560,
+      "longitude": 72.8877,
+      "is_critical": true
+    },
+    {
+      "id": "IND-MUM-CHM-001",
+      "name": "Navi Mumbai Chemical Facility",
+      "type": "chemical_facility",
+      "latitude": 19.1210,
+      "longitude": 72.8777,
+      "is_critical": false
+    },
+    {
+      "id": "IND-BLR-WHS-001",
+      "name": "Whitefield Warehouse Complex",
+      "type": "warehouse",
+      "latitude": 12.9536,
+      "longitude": 77.5946,
+      "is_critical": false
+    },
+    {
+      "id": "IND-BLR-IND-002",
+      "name": "Peenya Industrial Estate",
+      "type": "industrial_plant",
+      "latitude": 13.0500,
+      "longitude": 77.5700,
+      "is_critical": true
+    }
+  ]
+}
