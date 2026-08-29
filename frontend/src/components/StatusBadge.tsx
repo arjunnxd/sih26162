@@ -14,6 +14,12 @@ const severityStyles: Record<string, { bg: string; text: string; border: string 
   CRITICAL: { bg: '#fecaca', text: '#7f1d1d', border: '#ef4444' },
   NORMAL: { bg: '#dbeafe', text: '#1e40af', border: '#93c5fd' },
   UNUSUAL: { bg: '#fef3c7', text: '#92400e', border: '#fcd34d' },
+  // Event classification types — visually distinct (purple/indigo family)
+  HIGH_PRIORITY_INCIDENT: { bg: '#ede9fe', text: '#5b21b6', border: '#c4b5fd' },
+  INDUSTRIAL_THERMAL_ACTIVITY: { bg: '#cffafe', text: '#155e75', border: '#67e8f9' },
+  UNUSUAL_THERMAL_EVENT: { bg: '#fef3c7', text: '#92400e', border: '#fcd34d' },
+  NORMAL_RECURRING_ACTIVITY: { bg: '#dcfce7', text: '#166534', border: '#86efac' },
+  UNKNOWN: { bg: '#f1f5f9', text: '#475569', border: '#cbd5e1' },
 };
 
 export function StatusBadge({ level, size = 'md', showLabel = true }: StatusBadgeProps) {

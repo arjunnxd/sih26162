@@ -97,6 +97,52 @@ export function HotspotDetail({ hotspot, loading, error }: HotspotDetailProps) {
           ))}
         </ul>
       </DetailSection>
+
+      <DetailSection title="PROXIMITY INTELLIGENCE">
+        {hasProximity(hotspot) ? (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <DetailRow label="Nearest Facility" value={hotspot.nearest_facility_name ?? '—'} />
+            <DetailRow label="Facility Type" value={formatEnum(hotspot.nearest_facility_type)} />
+            <DetailRow label="Distance" value={formatDistance(hotspot.nearest_facility_distance_m)} />
+            <DetailRow label="Nearby Facilities" value={hotspot.nearby_facility_count !== null ? String(hotspot.nearby_facility_count) : '—'} />
+            <DetailRow label="Industrial Proximity" value={hotspot.industrial_proximity_score !== null ? `${hotspot.industrial_proximity_score.toFixed(0)}/100` : '—'} />
+            <DetailRow label="Critical Infrastructure" value={hotspot.near_critical_infrastructure === true ? 'Yes' : hotspot.near_critical_infrastructure === false ? 'No' : '—'} />
+          </div>
+        ) : (
+          <p style={{ margin: 0, fontSize: '0.8125rem', color: '#64748b', fontStyle: 'italic' }}>
+            Geospatial infrastructure data unavailable for this hotspot.
+          </p>
+        )}
+      </DetailSection>
+
+      <DetailSection title="EVENT CLASSIFICATION">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+              {formatEnum(hotspot.event_type)}
+            </span>
+            <StatusBadge level={hotspot.event_type} size="sm" />
+          </div>
+          <DetailRow label="Classification Confidence" value={`${hotspot.classification_confidence.toFixed(0)}%`} />
+
+          <div style={{ marginTop: '0.25rem' }}>
+            <p style={{ margin: '0 0 0.375rem 0', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748b' }}>
+              Why This Classification
+            </p>
+            <ul style={{ margin: 0, padding: '0 0 0 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
+              {hotspot.classification_reasons.map((reason, index) => (
+                <li key={index} style={{ fontSize: '0.8125rem', color: '#334155', lineHeight: 1.5 }}>
+                  {reason}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.6875rem', color: '#94a3b8', fontStyle: 'italic', lineHeight: 1.4 }}>
+            {hotspot.disclaimer}
+          </p>
+        </div>
+      </DetailSection>
     </div>
   );
 }
@@ -136,6 +182,31 @@ function DetailRow({ label, value }: { label: string; value: string }) {
       <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#0f172a' }}>{value}</span>
     </div>
   );
+}
+
+function hasProximity(hotspot: Hotspot): boolean {
+  return (
+    hotspot.nearest_facility_name !== null ||
+    hotspot.nearest_facility_type !== null ||
+    hotspot.nearest_facility_distance_m !== null ||
+    hotspot.nearby_facility_count !== null ||
+    hotspot.industrial_proximity_score !== null ||
+    hotspot.near_critical_infrastructure !== null
+  );
+}
+
+function formatEnum(value: string | null): string {
+  if (!value) return '—';
+  return value
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+}
+
+function formatDistance(meters: number | null): string {
+  if (meters === null || !Number.isFinite(meters)) return '—';
+  if (meters >= 1000) return `${(meters / 1000).toFixed(1)} km`;
+  return `${meters.toFixed(0)} m`;
 }
 
 function formatDate(isoString: string): string {
